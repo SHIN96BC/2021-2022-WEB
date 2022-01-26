@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+                      https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
+  version="5.0"
+  metadata-complete="true">
+
+  <display-name>NewContext</display-name>
+  <description>
+      Wellcome NewContext
+  </description>
+
+  
+    <servlet>
+        <servlet-name>ServletListName</servlet-name>
+        <servlet-class>sbc.svv.addr.ServletList</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServletListName</servlet-name>
+        <url-pattern>/board/list.do</url-pattern>
+    </servlet-mapping>
+
+
+	<servlet>
+        <servlet-name>ServletContentName</servlet-name>
+        <servlet-class>sbc.svv.addr.ServletContent</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServletContentName</servlet-name>
+        <url-pattern>/board/content.do</url-pattern>
+    </servlet-mapping>
+
+
+	<servlet>
+        <servlet-name>ServletInsertName</servlet-name>
+        <servlet-class>sbc.svv.addr.ServletInsert</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServletInsertName</servlet-name>
+        <url-pattern>/board/insert.do</url-pattern>
+    </servlet-mapping>
+
+
+	<servlet>
+        <servlet-name>ServletDeleteName</servlet-name>
+        <servlet-class>sbc.svv.addr.ServletDelete</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServletDeleteName</servlet-name>
+        <url-pattern>/board/delete.do</url-pattern>
+    </servlet-mapping>
+
+	<servlet>
+        <servlet-name>ServletUpdateName</servlet-name>
+        <servlet-class>sbc.svv.addr.ServletUpdate</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServletUpdateName</servlet-name>
+        <url-pattern>/board/update.do</url-pattern>
+    </servlet-mapping>
+
+</web-app>
