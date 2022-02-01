@@ -33,8 +33,8 @@
 		  </tr>
 		  <tr>
 		     <td colspan='2' align='center'>
-			     <input style='margin-top:5; margin-bottom:5;' type='submit' value='로그인' onclick='javascript: form.action=/login/login.do'/>
-				 <input style='margin-top:5; margin-bottom:5;' type='submit' value='회원가입' onclick='javascript: form.action=/arrd';"/>
+			     <input style='margin-top:5; margin-bottom:5;' type='submit' value='로그인' onclick="javascript: form.action='login.do?m=login';"/>
+				 <input style='margin-top:5; margin-bottom:5;' type='submit' value='회원가입' onclick="javascript: form.action='login.do?m=signin';"/>
 				 <br/>
 				 <a href='' style='font-size:x-small;'>ID / PWD 변경</a>
 			 </td> 

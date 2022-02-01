@@ -31,7 +31,7 @@
                         <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
                         <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
                         <li class="nav-item"><a class="nav-link" href="#Board">Board</a></li>
-                        <li class="nav-item"><a class="nav-link" href="login/login.do?m=login">Login</a></li>
+                        <li class="nav-item"><a class="nav-link" href="login/login.do?m=loginmenu">Login</a></li>
                         <li class="nav-item"><a class="nav-link" href="login/login.do?m=signin">Sign Up</a></li>
                     </ul>
                 </div>
