@@ -11,18 +11,7 @@
 		}
 		a { text-decoration:none }
 	</style>
-	<script type="text/javascript">
-		function telValidator() {
-		    const msg = '유효하지 않는 전화번호입니다.';
-		    // IE 브라우저에서는 당연히 var msg로 변경
-		    var args = logininput.phonenumber.value;
-		    var form = document.logininput;
-		    if (/^[0-9]{2,3}[0-9]{3,4}[0-9]{4}/.test(args)) {
-		        form.submit();
-		    }
-		    alert(msg);
-		}
-	</script>
+	
 </head>
 <body onload='document.f.name.focus()'>
 <center>
@@ -30,8 +19,8 @@
 		정보를 입력해주세요
    </h1>
    <br/>
-   <a href='../'>메인으로</a>
-   <form name='logininput' action='login.do?m=insert' method='post'>
+   <a href='login.do'>메인으로</a>
+   <form name='logininput' action='login.do?m=insert' method='post' >
        <table border='1' width='500' height='200'>
 	      <tr>
 		     <td width='30%' colspan='2' align='center'><h2 style='margin-top:15;'>회원가입</h2></td> 
@@ -62,11 +51,25 @@
 		  </tr>
 		  <tr>
 		     <td colspan='2' align='center'>
-				 <input style='margin-top:5; margin-bottom:5;' type='button' value='회원가입' onclick="telValidator()"/>
+				 <input style='margin-top:5; margin-bottom:5;' type='submit' value='회원가입'/>
 				 <br/>
 			 </td> 
 		  </tr>
 	   </table>
+	   <script type="text/javascript">
+		   document.querySelector('form').onsubmit = function(event){
+			   const msg = '유효하지 않는 전화번호입니다.';
+			    // IE 브라우저에서는 당연히 var msg로 변경
+			    var args = logininput.phonenumber.value;
+			    var form = document.logininput;
+			    if (/^[0-9]{2,3}[0-9]{3,4}[0-9]{4}/.test(args)) {
+			        return true;
+			    }else{
+			    	alert(msg);
+			    	return false;
+			    }
+		   }
+		</script>
    </form>
 </center>
 </body>

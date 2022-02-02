@@ -1,6 +1,6 @@
-package bcm.mvc.model;
+package bcm.member.model;
 
-import bcm.mvc.domain.Member;
+import bcm.member.domain.Member;
 
 public class MemberService {
 	private MemberDAO dao;
@@ -22,5 +22,11 @@ public class MemberService {
 	}
 	public boolean findByPhoneNumberS(String phonenumber) {
 		return dao.findByPhoneNumber(phonenumber);
+	}
+	public boolean passwordCheckS(String id, String password) {
+		return dao.passwordCheck(id, password);
+	}
+	public Member userInfoS(String id) {
+		return dao.userInfo(id);
 	}
 }

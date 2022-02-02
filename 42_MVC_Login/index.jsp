@@ -1,4 +1,16 @@
+<%@ page contentType = 'text/html;charset=utf-8' import="bcm.member.domain.Member"%>
 
+<%! String message = "";%>
+<%
+	Member member = (Member)session.getAttribute("user");
+	
+	int i = -1;
+	if(member != null){
+		message = member.getNickName()+"님 어서오세요";
+		i = i+1;
+	}
+	
+%>
 <!DOCTYPE html>
 <html lang="kr">
     <head>
@@ -11,6 +23,7 @@
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
+        
         <!-- Google fonts-->
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
         <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
@@ -27,16 +40,43 @@
                     <i class="fas fa-bars ms-1"></i>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                    <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0" id="menuList">
                         <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
                         <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#Board">Board</a></li>
-                        <li class="nav-item"><a class="nav-link" href="login/login.do?m=loginmenu">Login</a></li>
-                        <li class="nav-item"><a class="nav-link" href="login/login.do?m=signin">Sign Up</a></li>
+                        <li class="nav-item" id="boardP"><a id="board" class="nav-link" href="login/login.do?m=loginmenu">Board</a></li>
+                        <li class="nav-item" id="loginInfo"><a id="login" class="nav-link" href="login/login.do?m=loginmenu">Login</a></li>
+                        <li class="nav-item" id="signupLogout"><a id="signup" class="nav-link" href="login/login.do?m=signin">Sign Up</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
+        <a style='display:none' id="info" class="nav-link" href="login/login.do?m=info"><%=message%></a>
+        <a style='display:none' id="logout" class="nav-link" href="login/login.do?m=logout">logout</a>
+        <a style='display:none' id="boardLogin" class="nav-link" href="boardclient/boardclient.do?b=list">Board</a>
+        	<script language=javascript>
+		        if(<%=i%> != -1){
+		        	let loginInfo = document.getElementById('loginInfo');
+		        	let signupLogout = document.getElementById('signupLogout');
+		        	let boardP = document.getElementById('boardP');
+		        	let login = document.getElementById('login');
+		        	let signup = document.getElementById('signup');
+		        	let board = document.getElementById('board');
+		    		loginInfo.removeChild(login);
+		    		signupLogout.removeChild(signup);
+		    		boardP.removeChild(board);
+		    		
+		    		let info = document.getElementById('info');
+		        	let logout = document.getElementById('logout');
+		        	let boardLogin = document.getElementById('boardLogin');
+		        	loginInfo.appendChild(info);
+		        	signupLogout.appendChild(logout);
+		        	boardP.appendChild(boardLogin);
+		        	info.style.display = 'block';
+		        	logout.style.display = 'block';
+		        	boardLogin.style.display = 'block';
+		    	}
+        	</script>
+        
         <!-- Masthead-->
         <header class="masthead">
             <div class="container">

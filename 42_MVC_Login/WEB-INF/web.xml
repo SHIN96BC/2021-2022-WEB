@@ -29,4 +29,14 @@
     <servlet-name>MemberControl</servlet-name>
     <url-pattern>/MemberControl</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>BoardControl</display-name>
+    <servlet-name>BoardControl</servlet-name>
+    <servlet-class>bcm.board.control.BoardControl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BoardControl</servlet-name>
+    <url-pattern>/BoardControl</url-pattern>
+  </servlet-mapping>
 </web-app>

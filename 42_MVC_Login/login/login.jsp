@@ -17,7 +17,7 @@
 		로그인정보 입력 
    </h1>
    <br/>
-   <a href='../'>메인으로</a>
+   <a href='login.do'>메인으로</a>
    <form name='f' action='' method='post'>
        <table border='1' width='300' height='200'>
 	      <tr>
@@ -29,7 +29,7 @@
 		  </tr>
 		  <tr>
 		     <th width='30%'>PWD</th> 
-			 <td><input name='pwd' size='20' align='center' type='password'></td>
+			 <td><input name='password' size='20' align='center' type='password'></td>
 		  </tr>
 		  <tr>
 		     <td colspan='2' align='center'>

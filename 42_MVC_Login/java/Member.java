@@ -1,4 +1,4 @@
-package bcm.mvc.domain;
+package bcm.member.domain;
 
 import java.sql.Date;
 
@@ -8,22 +8,22 @@ public class Member {
 	private String password;
 	private String nickname;
 	private String name;
-	private String phonenumber;
+	private String phoneNumber;
 	private String address;
 	private int authority;
 	private Date cdate;
 	public Member() {}
-	public Member(long clientnumber, String id, String password, String nickname, String name, String phonenumber, String address, int authority, Date date) {
+	public Member(long clientnumber, String id, String password, String nickname, String name, String phoneNumber, String address, int authority, Date cdate) {
 		super();
 		this.clientnumber = clientnumber;
 		this.id = id;
 		this.password = password;
 		this.nickname = nickname;
 		this.name = name;
-		this.phonenumber = phonenumber;
+		this.phoneNumber = phoneNumber;
 		this.address = address;
 		this.authority = authority;
-		this.cdate = date;
+		this.cdate = cdate;
 	}
 	public long getClientnumber() {
 		return clientnumber;
@@ -55,11 +55,11 @@ public class Member {
 	public void setName(String nickname) {
 		this.nickname = nickname;
 	}
-	public String getPhonenumber() {
-		return phonenumber;
+	public String getPhoneNumber() {
+		return phoneNumber;
 	}
-	public void setPhonenumber(String phonenumber) {
-		this.phonenumber = phonenumber;
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 	public String getAddress() {
 		return address;
@@ -73,11 +73,11 @@ public class Member {
 	public void setAuthority(int authority) {
 		this.authority = authority;
 	}
-	public Date getDate() {
+	public Date getCdate() {
 		return cdate;
 	}
-	public void setDate(Date date) {
-		this.cdate = date;
+	public void setCdate(Date cdate) {
+		this.cdate = cdate;
 	}
 	
 }
