@@ -1,10 +1,6 @@
 <%@ page contentType = "text/html;charset=utf-8" import="jstl.member.domain.Member"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%
-	Member member = (Member)session.getAttribute("user");
-%>
-
 <html>
   <head>
     <title>간단한 게시판</title>

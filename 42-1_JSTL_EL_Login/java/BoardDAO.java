@@ -62,7 +62,6 @@ class BoardDAO {
 			pstmt.setString(2, board.getWriterid());
 			pstmt.setString(3, board.getPostsubject());
 			pstmt.setString(4, board.getPostcontent());
-			pstmt.setInt(5, board.getAuthority());
 			int i = pstmt.executeUpdate();
 			if(i>0) {
 				return true;
@@ -90,8 +89,9 @@ class BoardDAO {
 				String writerId = rs.getString(3);
 				String postSubject = rs.getString(4);
 				String postContent = rs.getString(5);
+				long views = rs.getLong(6);
 				Date pdate = rs.getDate(7);
-				Board board = new Board(postNumber, writerNickName, writerId, postSubject, postContent, -1, pdate);
+				Board board = new Board(postNumber, writerNickName, writerId, postSubject, postContent, views, pdate);
 				return board;
 			}else {
 				return null;
@@ -126,6 +126,43 @@ class BoardDAO {
 			pstmt.setLong(3, board.getPostnumber());
 			pstmt.executeUpdate();
 		}catch(SQLException se) {
+		}finally {
+			closeAll(con, pstmt, null);
+		}
+	}
+	long viewsCheck(long postNumber) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(VIEWS_CHECK);
+			pstmt.setLong(1, postNumber);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				long views = rs.getLong(1);
+				return views;
+			}else {
+				return -1;
+			}
+		}catch(SQLException se) {
+			return -1;
+		}finally {
+			closeAll(con, pstmt, rs);
+		}
+	}
+	void viewsUpdate(long postNumber, long views) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(VIEWS_UPDATE);
+			pstmt.setLong(1, views);
+			pstmt.setLong(2, postNumber);
+			pstmt.executeUpdate();
+		}catch(SQLException se) {
+		}finally {
+			closeAll(con, pstmt, null);
 		}
 	}
 	private void closeAll(Connection con, PreparedStatement pstmt, ResultSet rs) {

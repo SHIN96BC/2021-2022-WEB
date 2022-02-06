@@ -1,17 +1,6 @@
 <%@ page contentType = 'text/html;charset=utf-8' import="jstl.member.domain.Member"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%! String message = "";%>
-<%
-	Member member = (Member)session.getAttribute("user");
-	
-	int i = -1;
-	if(member != null){
-		message = member.getNickname()+"님 어서오세요";
-		i = i+1;
-	}
-	
-%>
 <!DOCTYPE html>
 <html lang="kr">
     <head>
@@ -51,33 +40,33 @@
                 </div>
             </div>
         </nav>
-        <a style='display:none;' id="info" class="nav-link" href="login/login.do?m=info"><%=message%></a>
+        <a style='display:none;' id="info" class="nav-link" href="login/login.do?m=info">${sessionScope.user.nickname} 님 어서오세요</a>
         <a style='display:none;' id="logout" class="nav-link" href="login/login.do?m=logout">logout</a>
         <a style='display:none;' id="boardLogin" class="nav-link" href="boardclient/boardclient.do?b=list">Board</a>
-        	<script language=javascript>
-		        if(<%=i%> != -1){
-		        	let loginInfo = document.getElementById('loginInfo');
-		        	let signupLogout = document.getElementById('signupLogout');
-		        	let boardP = document.getElementById('boardP');
-		        	let login = document.getElementById('login');
-		        	let signup = document.getElementById('signup');
-		        	let board = document.getElementById('board');
-		    		loginInfo.removeChild(login);
-		    		signupLogout.removeChild(signup);
-		    		boardP.removeChild(board);
-		    		
-		    		let info = document.getElementById('info');
-		        	let logout = document.getElementById('logout');
-		        	let boardLogin = document.getElementById('boardLogin');
-		        	loginInfo.appendChild(info);
-		        	signupLogout.appendChild(logout);
-		        	boardP.appendChild(boardLogin);
-		        	info.style.display = 'block';
-		        	logout.style.display = 'block';
-		        	boardLogin.style.display = 'block';
-		    	}
-        	</script>
-        
+<c:if test="${sessionScope.user ne null}">
+	<script language=javascript>
+        	let loginInfo = document.getElementById('loginInfo');
+        	let signupLogout = document.getElementById('signupLogout');
+        	let boardP = document.getElementById('boardP');
+        	let login = document.getElementById('login');
+        	let signup = document.getElementById('signup');
+        	let board = document.getElementById('board');
+    		loginInfo.removeChild(login);
+    		signupLogout.removeChild(signup);
+    		boardP.removeChild(board);
+    		
+    		let info = document.getElementById('info');
+        	let logout = document.getElementById('logout');
+        	let boardLogin = document.getElementById('boardLogin');
+        	loginInfo.appendChild(info);
+        	signupLogout.appendChild(logout);
+        	boardP.appendChild(boardLogin);
+        	info.style.display = 'block';
+        	logout.style.display = 'block';
+        	boardLogin.style.display = 'block';
+    </script>
+</c:if>
+        	
         <!-- Masthead-->
         <header class="masthead">
             <div class="container">

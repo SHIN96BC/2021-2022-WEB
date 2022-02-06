@@ -52,6 +52,9 @@
 	<th width='100' align='center'>날짜</th>
 	<td>${board.pdate}</td>
 	</tr>
+	<th width='100' align='center'>조회수</th>
+	<td>${board.views}</td>
+	</tr>
 
 </table>
 <hr width='600' size='2' noshade>

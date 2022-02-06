@@ -8,16 +8,16 @@ public class Board {
 	private String writerId;
 	private String postSubject;
 	private String postContent;
-	private int authority;
+	private long views;
 	private Date pdate;
 	public Board() {}
-	public Board(long postNumber, String writerNickName, String writerId, String postSubject, String postContent, int authority, Date pdate) {
+	public Board(long postNumber, String writerNickName, String writerId, String postSubject, String postContent, long views, Date pdate) {
 		this.postNumber = postNumber;
 		this.writerNickName = writerNickName;
 		this.writerId = writerId;
 		this.postSubject = postSubject;
 		this.postContent = postContent;
-		this.authority = authority;
+		this.views = views;
 		this.pdate = pdate;
 	}
 	public long getPostnumber() {
@@ -50,11 +50,11 @@ public class Board {
 	public void setPostcontent(String postContent) {
 		this.postContent = postContent;
 	}
-	public int getAuthority() {
-		return authority;
+	public long getViews() {
+		return views;
 	}
-	public void setAuthority(int authority) {
-		this.authority = authority;
+	public void setViews(long views) {
+		this.views = views;
 	}
 	public Date getPdate() {
 		return pdate;

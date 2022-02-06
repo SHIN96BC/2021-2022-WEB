@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 	<script>
-		switch(${flag}){
+		switch(${message}){
 			case 0: 
 				alert("반드시 모든값을 입력해주세요.");
 				location.href='login.do?m=signin';

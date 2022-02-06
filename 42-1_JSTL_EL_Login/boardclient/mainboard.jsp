@@ -19,15 +19,16 @@
 	<a href='boardclient.do?b=input'>글쓰기</a>
 		&nbsp;&nbsp;&nbsp;
 	<a href='boardclient.do?b=index'>인덱스</a>
-	<hr width='600' size='2' noshade>
+	<hr width='800' size='2' noshade>
 	</center>
-	<table border='1' width='600' align='center' cellpadding='2'>
+	<table border='1' width='800' align='center' cellpadding='2'>
 	<tr>
 		<th align='center' width='10%'>글번호</th>
-		<th align='center' width='15%'>작성자</th>
-		<th align='center' width='30%'>이메일</th>
-		<th align='center' width='30%'>글제목</th>
+		<th align='center' width='10%'>작성자</th>
+		<th align='center' width='20%'>이메일</th>
+		<th align='center' width='25%'>글제목</th>
 		<th align='center' width='15%'>날짜</th>
+		<th align='center' width='10%'>조회수</th>
 	</tr>
 
 <c:if test="${empty list}">
@@ -45,9 +46,10 @@
 		<a href='boardclient.do?b=content&postNumber=${board.postnumber}'>${board.postsubject}</a>
 		</td>
 		<td align='center'>${board.pdate}</td>
+		<td align='center'>${board.views}</td>
 	</tr>
 </c:forEach>
 
 </table>
-<hr width='600' size='2' noshade>
+<hr width='800' size='2' noshade>
 </center>

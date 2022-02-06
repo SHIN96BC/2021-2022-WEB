@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import jstl.board.domain.Board;
 import jstl.board.model.BoardService;
+import jstl.member.model.MemberService;
 
 @WebServlet("/boardclient/boardclient.do")
 public class BoardControl extends HttpServlet {
@@ -85,6 +86,8 @@ public class BoardControl extends HttpServlet {
 	private void content(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		BoardService service = BoardService.getInstance();
 		long postNumber = getPostNumber(request);
+		long views = service.viewsCheckS(postNumber);
+		service.viewsUpdateS(postNumber, views);
 		Board board = service.contentS(postNumber);
 		request.setAttribute("board", board);
 		

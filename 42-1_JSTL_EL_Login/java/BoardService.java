@@ -28,4 +28,11 @@ public class BoardService {
 	public void updateS(Board board) {
 		dao.update(board);
 	} 
+	public long viewsCheckS(long postNumber) {
+		return dao.viewsCheck(postNumber);
+	}
+	public void viewsUpdateS(long postNumber, long views) {
+		views++;
+		dao.viewsUpdate(postNumber, views);
+	}
 }
