@@ -37,13 +37,16 @@ class BoardDAO {
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				long postNumber = rs.getLong(1);
-				String writerNicName = rs.getString(2);
+				String writerNickName = rs.getString(2);
 				String writerId = rs.getString(3);
 				String postSubject = rs.getString(4);
 				String postContent = rs.getString(5);
-				int authority = rs.getInt(6);
+				int views = rs.getInt(6);
 				Date pdate = rs.getDate(7);
-				list.add(new Board(postNumber, writerNicName, writerId, postSubject, postContent, authority, pdate));
+				long refer = rs.getLong(8);
+				long level = rs.getLong(9);
+				long sunbun = rs.getLong(10);
+				list.add(new Board(postNumber, writerNickName, writerId, postSubject, postContent, views, pdate, refer, level, sunbun));
 			}
 			return list;
 		}catch(SQLException se) {
@@ -75,6 +78,95 @@ class BoardDAO {
 			closeAll(con, pstmt, null);
 		}
 	}
+	boolean insertRe(Board board) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(INSERT_RE);
+			pstmt.setString(1, board.getWriternickname());
+			pstmt.setString(2, board.getWriterid());
+			pstmt.setString(3, board.getPostsubject());
+			pstmt.setString(4, board.getPostcontent());
+			pstmt.setLong(5, board.getRefer());
+			pstmt.setLong(6, board.getLev());
+			pstmt.setLong(7, board.getSunbun());
+			int i = pstmt.executeUpdate();
+			if(i>0) {
+				return true;
+			}else {
+				return false;
+			}
+		}catch(SQLException se) {
+			System.out.println("se: " + se);
+				return false;
+		}finally {
+			closeAll(con, pstmt, null);
+		}
+	}
+	long findByRefer(long postNumber) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(FIND_BY_REFER);
+			pstmt.setLong(1, postNumber);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				long refer = rs.getLong(1);
+				return refer;
+			}else {
+				return -1;
+			}
+		}catch(SQLException se) {
+			return -1;
+		}finally {
+			closeAll(con, pstmt, rs);
+		}
+	}
+	long findByLev(long postNumber) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(FIND_BY_LEV);
+			pstmt.setLong(1, postNumber);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				long refer = rs.getLong(1);
+				return refer;
+			}else {
+				return -1;
+			}
+		}catch(SQLException se) {
+			return -1;
+		}finally {
+			closeAll(con, pstmt, rs);
+		}
+	}
+	long findBySunbun(long postNumber) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(FIND_BY_SUNBUN);
+			pstmt.setLong(1, postNumber);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				long refer = rs.getLong(1);
+				return refer;
+			}else {
+				return -1;
+			}
+		}catch(SQLException se) {
+			return -1;
+		}finally {
+			closeAll(con, pstmt, rs);
+		}
+	}
 	Board content(long postNumber) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -91,7 +183,10 @@ class BoardDAO {
 				String postContent = rs.getString(5);
 				long views = rs.getLong(6);
 				Date pdate = rs.getDate(7);
-				Board board = new Board(postNumber, writerNickName, writerId, postSubject, postContent, views, pdate);
+				long refer = rs.getLong(8);
+				long level = rs.getLong(9);
+				long sunbun = rs.getLong(10);
+				Board board = new Board(postNumber, writerNickName, writerId, postSubject, postContent, views, pdate, refer, level, sunbun);
 				return board;
 			}else {
 				return null;

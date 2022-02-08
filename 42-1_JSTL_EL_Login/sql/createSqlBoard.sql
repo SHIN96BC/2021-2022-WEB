@@ -9,8 +9,11 @@ create table BOARDCLIENT(
 	WRITERID varchar(20),
 	POSTSUBJECT varchar(100),
 	POSTCONTENT varchar(1000),
-	AUTHORITY number(1)  default 2 check(AUTHORITY in(0 , 1 , 2)),
+	VIEWS number,
 	PDATE date,
+	REFER number,
+	LEV number,
+	SUNBUN number,
 	constraint BOARDCLIENT_FK foreign key(WRITERID) references BOARDCLIENTMEMBER(ID) on delete cascade
 );
 create sequence BOARDCLIENT_SEQ increment by 1 start with 1 nocache;

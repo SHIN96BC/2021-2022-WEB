@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=utf-8" import="java.util.ArrayList, jstl.board.domain.Board, jstl.member.domain.Member"%>
+<%@ page contentType="text/html;charset=utf-8" import="jstl.board.domain.Board, jstl.member.domain.Member, jstl.board.model.BoardConst"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 	<meta charset='utf-8'>
@@ -62,6 +62,7 @@
 <a id="postUpdate" style="display:none;" href='boardclient.do?b=updateList&postNumber=${board.postnumber}'>수정</a>
 <a id="postDelete" style="display:none; margin-left:15;" href='boardclient.do?b=delete&postNumber=${board.postnumber}'>삭제</a>
 <a style="margin-left:15;" href='boardclient.do?b=list'>목록</a>
+<a style="margin-left:15;" href='boardclient.do?b=input&type=<%=BoardConst.RE%>&postNumber=${board.postnumber}'>답글</a>
 </b>
 <hr width='600' size='2' noshade>
 </center>

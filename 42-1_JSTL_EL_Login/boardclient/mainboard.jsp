@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=utf-8" import="java.util.ArrayList, jstl.board.domain.Board"%>
+<%@ page contentType="text/html;charset=utf-8" import="java.util.ArrayList, jstl.board.domain.Board, jstl.board.model.BoardConst"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <meta charset='utf-8'>
@@ -16,7 +16,7 @@
 	<hr width='600' size='2' noshade>
 	<h2>Board</h2>
 		&nbsp;&nbsp;&nbsp;
-	<a href='boardclient.do?b=input'>글쓰기</a>
+	<a href='boardclient.do?b=input&type=<%=BoardConst.MAIN%>'>글쓰기</a>
 		&nbsp;&nbsp;&nbsp;
 	<a href='boardclient.do?b=index'>인덱스</a>
 	<hr width='800' size='2' noshade>

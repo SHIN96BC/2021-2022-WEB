@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import jstl.board.domain.Board;
 import jstl.board.model.BoardService;
 import jstl.member.model.MemberService;
+import static jstl.board.model.BoardConst.*;
 
 @WebServlet("/boardclient/boardclient.do")
 public class BoardControl extends HttpServlet {
@@ -48,7 +49,21 @@ public class BoardControl extends HttpServlet {
 		rd.forward(request, response);
 	}
 	private void input(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		response.sendRedirect("input.jsp");
+		BoardService service = BoardService.getInstance();
+		long postnumber = getPostNumber(request);
+		int type = getType(request);
+		if(type == MAIN) {
+			response.sendRedirect("input.jsp");
+		}else if(type == RE) {
+			long lev = service.findByLevS(postnumber);
+			request.setAttribute("lev", lev);
+			
+			String view = "input_re.jsp";
+			RequestDispatcher rd = request.getRequestDispatcher(view);
+			rd.forward(request, response);
+		}else {
+			response.sendRedirect("boardclient.do");
+		}
 	}
 	private void insert(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		BoardService service = BoardService.getInstance();
@@ -56,22 +71,26 @@ public class BoardControl extends HttpServlet {
 		String id = request.getParameter("id");
 		String postsubject = request.getParameter("postsubject");
 		String postcontent = request.getParameter("postcontent");
-		String authorityStr = request.getParameter("authority");
-		int authority = -1;
-		if(nickName != null && id != null && postsubject != null && postcontent != null && authorityStr != null) {
+		String typeStr = request.getParameter("type");
+		if(nickName != null && id != null && postsubject != null && postcontent != null && typeStr != null) {
 			nickName.trim();
 			id.trim();
 			postsubject.trim();
 			postcontent.trim();
-			authorityStr.trim();
-			try {
-				authority = Integer.parseInt(authorityStr);
-			}catch(NumberFormatException nfe) {
-			}
-			if(nickName.length() != 0 && id.length() != 0 && postsubject.length() != 0 && postcontent.length() != 0 && authority != -1) {
-				Board board = new Board(-1, nickName, id, postsubject, postcontent, authority, null);
-				boolean flag = service.insertS(board);
-				request.setAttribute("flag", flag);
+			typeStr = typeStr.trim();
+			if(nickName.length() != 0 && id.length() != 0 && postsubject.length() != 0 && postcontent.length() != 0 && typeStr.length() != 0) {
+				int type = getType(request);
+				if(type == MAIN) {
+					Board board = new Board(-1, nickName, id, postsubject, postcontent, -1, null, -1, 0, 0);
+					boolean flag = service.insertS(board);
+					request.setAttribute("flag", flag);
+				}else if(type == RE){
+					Board board = new Board(-1, nickName, id, postsubject, postcontent, -1, null, -1, 0, 0);
+					boolean flag = service.insertReS(board);
+					request.setAttribute("flag", flag);
+				}else {
+					response.sendRedirect("boardclient.do");
+				}
 			}else {
 				request.setAttribute("flag", false);
 			}
@@ -117,7 +136,7 @@ public class BoardControl extends HttpServlet {
 		long postNumber = getPostNumber(request);
 		String postSubject = request.getParameter("postSubject");
 		String postContent = request.getParameter("postContent");
-		Board board = new Board(postNumber, null, null, postSubject, postContent, -1, null);
+		Board board = new Board(postNumber, null, null, postSubject, postContent, -1, null, -1, -1, -1);
 		service.updateS(board);
 		
 		response.sendRedirect("boardclient.do");
@@ -136,5 +155,21 @@ public class BoardControl extends HttpServlet {
 			}
 		}
 		return postNumber;
+	}
+	private int getType(HttpServletRequest request){
+		int type = -1;
+		String typeStr = request.getParameter("type");
+		if(typeStr != null){
+			typeStr = typeStr.trim();
+			if(typeStr.length() != 0){
+				try {
+					type = Integer.parseInt(typeStr);
+					return type;
+				}catch(NumberFormatException nfe) {
+					return type;
+				}
+			}
+		}
+		return type;
 	}
 }

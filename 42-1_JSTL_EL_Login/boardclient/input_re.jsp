@@ -1,5 +1,6 @@
 <%@ page contentType = "text/html;charset=utf-8" import="jstl.member.domain.Member, jstl.board.model.BoardConst"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <html>
   <head>
@@ -33,11 +34,12 @@
   <body onload="input.name.focus()">
     <center>
 	   <hr width="600" size="2" noshade>
-	      <h2>글 작성</h2>
+	      <h2>답글 작성</h2>
 		  <a href='boardclient.do'>글목록 </a>
 	   <hr width="600" size="2" noshade>
 	</center>
-	<form name="input" method="post" action="boardclient.do?b=insert&type=<%=BoardConst.MAIN%>">
+	
+	<form name="input" method="post" action="boardclient.do?b=insert&type=<%=BoardConst.RE%>">
 		<input type="hidden"  name="id" value="${sessionScope.user.id}">
 		<input type="hidden"  name="nickName" value="${sessionScope.user.nickname}">
 	   <table border="1" width="600" align="center"  cellpadding="3" cellspacing="1">
@@ -45,6 +47,7 @@
 		     <td width="30%" align="center">글쓴이</td>
 			 <td align="center"><input type="text" name="nn" value="${sessionScope.user.nickname}" size="60" disabled></td>
 		  </tr>
+
           <tr>
 		     <td align="center">글제목</td>
 			 <td align="center"><input type="text" name="postsubject" size="60"></td>
@@ -53,6 +56,12 @@
 		     <td align="center">글내용</td>
 			 <td align="center"><textarea name="postcontent" rows="5" cols="53"></textarea></td>
 		  </tr>
+
+<script>
+	for(let i=0; i<${lev+1}; i++){
+		$('input[name=postsubject]').attr('value', "(RE)");
+	}
+</script>
 		  <tr>
 		     <td colspan="2" align="center">
 			    <input type="button" value="전송" onclick="check()">

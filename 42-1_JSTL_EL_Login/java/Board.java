@@ -10,8 +10,12 @@ public class Board {
 	private String postContent;
 	private long views;
 	private Date pdate;
+	private long refer;
+	private long lev;
+	private long sunbun;
+	
 	public Board() {}
-	public Board(long postNumber, String writerNickName, String writerId, String postSubject, String postContent, long views, Date pdate) {
+	public Board(long postNumber, String writerNickName, String writerId, String postSubject, String postContent, long views, Date pdate, long refer, long lev, long sunbun) {
 		this.postNumber = postNumber;
 		this.writerNickName = writerNickName;
 		this.writerId = writerId;
@@ -19,6 +23,9 @@ public class Board {
 		this.postContent = postContent;
 		this.views = views;
 		this.pdate = pdate;
+		this.refer = refer;
+		this.lev = lev;
+		this.sunbun = sunbun;
 	}
 	public long getPostnumber() {
 		return postNumber;
@@ -61,6 +68,24 @@ public class Board {
 	}
 	public void setPdate(Date pdate) {
 		this.pdate = pdate;
+	}
+	public long getRefer() {
+		return refer;
+	}
+	public void setRefer(long refer) {
+		this.refer = refer;
+	}
+	public long getLev() {
+		return lev;
+	}
+	public void setLev(long lev) {
+		this.lev = lev;
+	}
+	public long getSunbun() {
+		return sunbun;
+	}
+	public void setSunbun(long sunbun) {
+		this.sunbun = sunbun;
 	}
 	
 }
