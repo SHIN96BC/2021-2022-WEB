@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=utf-8"  import="java.util.ArrayList, jstl.board.domain.Board" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+
 		<meta charset='utf-8'>
 		<style>
 		table, th, td {
@@ -19,6 +20,11 @@
 		<a href='boardclient.do'>글목록</a>
 		<hr width='600' size='2' noshade>
 		<form name='f' method='post' action='boardclient.do?b=update'>
+		
+<c:if test="${empty sessionScope.user}">
+	location.href='boardclient.do?b=index';
+</c:if>
+
 <c:if test="${empty board}">
 	<tr>
 		<td colspan="5" style="text-align:center">데이터가 하나도 없어요</td>

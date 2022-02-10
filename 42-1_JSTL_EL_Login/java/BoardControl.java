@@ -19,6 +19,7 @@ public class BoardControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("service 진입");
 		String b = request.getParameter("b");
 		if(b != null) {
 			b.trim();
@@ -41,9 +42,27 @@ public class BoardControl extends HttpServlet {
 		response.sendRedirect("../");
 	}
 	private void list(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		System.out.println("list 진입");
 		BoardService service = BoardService.getInstance();
-		ArrayList<Board> list = service.listS();
+		long ps = getPs(request);
+		long cp = getCp(request);
+		ArrayList<Long> cpList = service.getCpList(ps, cp);
+		ArrayList<Board> list = service.listS(ps, cp);
+		long maxPage = service.getMaxPage(cp);
+		long size = service.boardCountS();
+		request.setAttribute("ps", ps);
+		System.out.println("ps: "+ ps);
 		request.setAttribute("list", list);
+		System.out.println("list: "+ list);
+		request.setAttribute("size", size);
+		System.out.println("size: "+ size);
+		request.setAttribute("cp", cp);
+		System.out.println("list cp: "+ cp);
+		request.setAttribute("cpList", cpList);
+		System.out.println("cpList: "+ cpList);
+		request.setAttribute("maxPage", maxPage);
+		System.out.println("maxPage: "+ maxPage);
+		
 		String view = "mainboard.jsp";
 		RequestDispatcher rd = request.getRequestDispatcher(view);
 		rd.forward(request, response);
@@ -57,6 +76,7 @@ public class BoardControl extends HttpServlet {
 		}else if(type == RE) {
 			long lev = service.findByLevS(postnumber);
 			request.setAttribute("lev", lev);
+			request.setAttribute("postNumber", postnumber);
 			
 			String view = "input_re.jsp";
 			RequestDispatcher rd = request.getRequestDispatcher(view);
@@ -85,7 +105,8 @@ public class BoardControl extends HttpServlet {
 					boolean flag = service.insertS(board);
 					request.setAttribute("flag", flag);
 				}else if(type == RE){
-					Board board = new Board(-1, nickName, id, postsubject, postcontent, -1, null, -1, 0, 0);
+					long postNumber = getPostNumber(request);
+					Board board = new Board(postNumber, nickName, id, postsubject, postcontent, -1, null, -1, 0, 0);
 					boolean flag = service.insertReS(board);
 					request.setAttribute("flag", flag);
 				}else {
@@ -171,5 +192,35 @@ public class BoardControl extends HttpServlet {
 			}
 		}
 		return type;
+	}
+	private long getPs(HttpServletRequest request){
+		long ps = -1;
+		String psStr = request.getParameter("ps");
+		if(psStr != null){
+			psStr = psStr.trim();
+			if(psStr.length() != 0){
+				try{
+					ps = Integer.parseInt(psStr);
+					return ps;
+				}catch(NumberFormatException nfe){
+				}
+			}
+		}
+		return ps;
+	}
+	private long getCp(HttpServletRequest request){
+		long cp = -1;
+		String cpStr = request.getParameter("cp");
+		if(cpStr != null){
+			cpStr = cpStr.trim();
+			if(cpStr.length() != 0){
+				try{
+					cp = Integer.parseInt(cpStr);
+					return cp;
+				}catch(NumberFormatException nfe){
+				}
+			}
+		}
+		return cp;
 	}
 }

@@ -2,17 +2,27 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<%
+	long lev = (Long)request.getAttribute("lev");
+	String re = "";
+	for(int i=0; i<lev+1; i++){
+		re += "(RE)";
+	}
+
+%>
+
+<c:if test="${empty sessionScope.user}">
+	location.href='boardclient.do?b=index';
+</c:if>
+
 <html>
   <head>
     <title>간단한 게시판</title>
 	<meta charset='utf-8'>
 	<script language="javascript">
-	   function check()
-	   {
-	       for(var i=0; i<document.input.elements.length; i++)
-		   {
-		      if(document.input.elements[i].value == "")
-			  {
+	   function check(){
+	       for(var i=0; i<document.input.elements.length; i++){
+		      if(document.input.elements[i].value == ""){
 			     alert("모든 값을 입력 하셔야 합니다. ");
 				 return false;
 			  }
@@ -39,7 +49,7 @@
 	   <hr width="600" size="2" noshade>
 	</center>
 	
-	<form name="input" method="post" action="boardclient.do?b=insert&type=<%=BoardConst.RE%>">
+	<form name="input" method="post" action="boardclient.do?b=insert&type=<%=BoardConst.RE%>&postNumber=${postNumber}">
 		<input type="hidden"  name="id" value="${sessionScope.user.id}">
 		<input type="hidden"  name="nickName" value="${sessionScope.user.nickname}">
 	   <table border="1" width="600" align="center"  cellpadding="3" cellspacing="1">
@@ -50,18 +60,13 @@
 
           <tr>
 		     <td align="center">글제목</td>
-			 <td align="center"><input type="text" name="postsubject" size="60"></td>
+			 <td align="center"><input type="text" name="postsubject" size="60" value="<%=re%>"></td>
 		  </tr>
 		  <tr>
 		     <td align="center">글내용</td>
 			 <td align="center"><textarea name="postcontent" rows="5" cols="53"></textarea></td>
 		  </tr>
 
-<script>
-	for(let i=0; i<${lev+1}; i++){
-		$('input[name=postsubject]').attr('value', "(RE)");
-	}
-</script>
 		  <tr>
 		     <td colspan="2" align="center">
 			    <input type="button" value="전송" onclick="check()">

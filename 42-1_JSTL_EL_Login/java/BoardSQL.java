@@ -1,7 +1,8 @@
 package jstl.board.model;
 
 class BoardSQL {
-	static final String LIST = "select * from BOARDCLIENT order by POSTNUMBER desc, SUNBUN asc";
+	static final String LIST = "select * from (select rownum rnum , aa.* from (select * from BOARDCLIENT order by refer desc, sunbun asc ) aa ) where rnum > ? and rnum <= ?";
+	static final String BOARD_SIZE = "select * from BOARDCLIENT";
 	static final String CONTENT = "select * from BOARDCLIENT where POSTNUMBER=?";
 	static final String INSERT = "insert into BOARDCLIENT values(BOARDCLIENT_SEQ.nextval, LOWER(?), LOWER(?), ?, ?, 0, SYSDATE, BOARDCLIENT_REFER_SEQ.nextval, 0, 0)";
 	static final String INSERT_RE = "insert into BOARDCLIENT values(BOARDCLIENT_SEQ.nextval, LOWER(?), LOWER(?), ?, ?, 0, SYSDATE, ?, ?, ?)";

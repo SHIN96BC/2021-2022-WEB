@@ -1,6 +1,9 @@
 <%@ page contentType = "text/html;charset=utf-8" import="jstl.member.domain.Member, jstl.board.model.BoardConst"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<c:if test="${empty sessionScope.user}">
+	location.href='boardclient.do?b=index';
+</c:if>
 <html>
   <head>
     <title>간단한 게시판</title>

@@ -26,7 +26,7 @@ class BoardDAO {
 			System.out.println("#tomcat이 만든 dbcp객체(jdbc/myoracle)이름을 못찾음");
 		}
 	}
-	ArrayList<Board> list() {
+	ArrayList<Board> list(long max, long min) {
 		ArrayList<Board> list = new ArrayList<Board>();
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -34,23 +34,47 @@ class BoardDAO {
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(LIST);
+			pstmt.setLong(1, min);
+			pstmt.setLong(2, max);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				long postNumber = rs.getLong(1);
-				String writerNickName = rs.getString(2);
-				String writerId = rs.getString(3);
-				String postSubject = rs.getString(4);
-				String postContent = rs.getString(5);
-				int views = rs.getInt(6);
-				Date pdate = rs.getDate(7);
-				long refer = rs.getLong(8);
-				long level = rs.getLong(9);
-				long sunbun = rs.getLong(10);
-				list.add(new Board(postNumber, writerNickName, writerId, postSubject, postContent, views, pdate, refer, level, sunbun));
+				// 1번은 rnum
+				long postNumber = rs.getLong(2);
+				String writerNickName = rs.getString(3);
+				String writerId = rs.getString(4);
+				String postSubject = rs.getString(5);
+				String postContent = rs.getString(6);
+				long views = rs.getLong(7);
+				Date pdate = rs.getDate(8);
+				long refer = rs.getLong(9);
+				long lev = rs.getLong(10);
+				long sunbun = rs.getLong(11);
+				list.add(new Board(postNumber, writerNickName, writerId, postSubject, postContent, views, pdate, refer, lev, sunbun));
 			}
+			System.out.println("list : " + list);
 			return list;
 		}catch(SQLException se) {
+			System.out.println("list se: " + se);
 			return null;
+		}finally {
+			closeAll(con, pstmt, rs);
+		}
+	}
+	long boardCount() {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(BOARD_SIZE);
+			rs = pstmt.executeQuery();
+			long size = 0;
+			while(rs.next()) {
+				size++;
+			}
+			return size;
+		}catch(SQLException se) {
+			return -1;
 		}finally {
 			closeAll(con, pstmt, rs);
 		}
@@ -135,8 +159,8 @@ class BoardDAO {
 			pstmt.setLong(1, postNumber);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				long refer = rs.getLong(1);
-				return refer;
+				long Lev = rs.getLong(1);
+				return Lev;
 			}else {
 				return -1;
 			}
@@ -146,18 +170,18 @@ class BoardDAO {
 			closeAll(con, pstmt, rs);
 		}
 	}
-	long findBySunbun(long postNumber) {
+	long findBySunbun(long refer) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(FIND_BY_SUNBUN);
-			pstmt.setLong(1, postNumber);
+			pstmt.setLong(1, refer);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				long refer = rs.getLong(1);
-				return refer;
+				long sunbun = rs.getLong(1);
+				return sunbun;
 			}else {
 				return -1;
 			}

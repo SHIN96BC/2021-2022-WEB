@@ -18,16 +18,19 @@
 	Board
 	</h1>
 	&nbsp;&nbsp;&nbsp;&nbsp;
-	<a href='boardclient.do?b=input'>글쓰기</a>
+	<a href='boardclient.do?b=input&type=<%=BoardConst.MAIN%>'>글쓰기</a>
 	<hr width='600' size='2' noshade>
 	<table border='1' width='600' align='center' cellpadding='3'>
+	
+<c:if test="${empty sessionScope.user}">
+	location.href='boardclient.do?b=index';
+</c:if>
 
 <c:if test="${empty board}">
 	<script>
 		location.href='boardclient.do?b=list'
 	</script>
 </c:if>
-
 	<tr>
 	<td width='100' align='center'>글번호</td>
 	<td>${board.postnumber}</td>
@@ -46,7 +49,7 @@
 	</tr>
 	<tr>
 	<td align='center'>글내용</td>
-	<td>${board.postcontent}</td>
+	<td height="200">${board.postcontent}</td>
 	</tr>
 	<tr>
 	<th width='100' align='center'>날짜</th>
